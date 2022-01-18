@@ -2,30 +2,27 @@
 using namespace std;
 
 typedef long long ll;
-double T[1010101];
-double S[1010101];
+double dp[1010101];
+
+double f(ll x) {
+    if (dp[x] >= 0.00) return dp[x];
+    else {
+        double sum = 0.00;
+        for (ll i=1; i<=6; i++) {
+            sum += (1.00/6.00)*(1 + f(x+i));
+        }
+        dp[x] = sum;
+        return dp[x];
+    }
+}
 
 int main(void) {
     cin.tie(0); cout.tie(0); ios::sync_with_stdio(0);
     ll n;
     cin >> n;
-    T[0] = 0; T[1] = 1; S[0] = 0; S[1] = 1;
-    for (int i=2; i<=n; i++) {
-        double sum = 0;
-        int cnt = 0;
-        for (int j=6; j>0; j--) {
-            if (i-j <= 0) {
-                cout << "here\n";
-                sum += (double)1/6;
-            }
-            else {
-                sum += (S[i-1] - S[i-j-1] + j) / 6 / j;
-            }
-            cout << i << " : " << sum << '\n';
-        }
-        T[i] = sum;
-        S[i] = S[i-1] + T[i];
-    }
-    cout << T[n] << '\n';
+    for (ll i=0; i<n; i++) dp[i] = -1.00;
+    cout << fixed;
+    cout.precision(16);
+    cout << f(0) << '\n';
     return (0);
 }
