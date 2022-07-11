@@ -19,7 +19,7 @@ void hanoi(int origin, int dest, int h) {
     }
     int new_dest = 6 - (origin + dest);
     hanoi(origin, new_dest, h-1);
-   v.push_back(make_pair(origin, dest));
+    v.push_back(make_pair(origin, dest));
     cnt++;
     hanoi(new_dest, dest, h-1);
 }
