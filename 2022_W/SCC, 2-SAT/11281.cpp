@@ -77,6 +77,8 @@ int main(void) {
     cout << 1 << "\n";
     // 타잔 알고리즘 -> 스택
     // 마지막에 발견된 SCC일수록 DAG에서는 앞쪽에 있음.
+    // 가장 tree의 끝단에 있는 노드를 1로 만드는 것이 좋음.
+    // 윗 단에서 true가 되면 그 아래도 연쇄적으로 영향을 받기 때문.
     reverse(SCC.begin(), SCC.end());
     for (ll i=0; i<SN; i++) {
         for (ll j=0; j<SCC[i].size(); j++) {
