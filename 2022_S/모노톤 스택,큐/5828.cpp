@@ -6,7 +6,7 @@
 #include <cstring>
 using namespace std;
 #define p(a, b) make_pair(a, b)
-#define INF 1e13
+#define INF 1e16
 
 typedef long long ll;
 vector<pair<ll, ll> > v;
@@ -41,21 +41,19 @@ int main(void) {
             }
             j++;
         }
-        if (!flag) { // while 문 안에 들어가지 않는 경우는 다음 station이 너무 먼 경우
+        if (!flag) {
             cout << -1 << '\n';
             return 0;
         }
-        // while 안에는 들어가지만 if 문 내에 들어가지 못한다면 ? 현재 있는 station이 가장 저렴함
         if (i != j) {
-            // 최대 이동할 수 있는 만큼?
-            // 이게 최선이 아닐 수 있음.... 중간에 살짝 비싼데서 더 사는게 낫고, 최대 이동한 station에 너무 비싸면 ?
-            // 풀매수 하고 일단 다음 Station으로만 이동
-            // 다음 station이 종착지인 경우 풀 매수할 필요 없음. 필요한 만큼만 사고 끝내기
-            if (i+1 == v.size()-1) result += v[i].second * (v[i+1].first - pos - b);
-            else result += v[i].second * (g - b);
-            b = g - (v[i+1].first - pos);
-            pos = v[i+1].first;
-            i++;
+            if (b < min(g, d - pos)) {
+                result += v[i].second * (min(g, d - pos) - b);
+                b += min(g, d - pos) - b;
+            }
+            if (g < d - pos) i++;
+            else i = v.size()-1;
+            b = g - (v[i].first - pos);
+            pos = v[i].first;
         }
     }
     if (result >= INF || pos != d) cout << -1 << '\n';
